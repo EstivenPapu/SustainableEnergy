@@ -39,6 +39,7 @@ public class ProduccionEnergeticaController {
         return produccionEnergeticaService.obtenerTop10PaisesEolica(year);
     }
 
+    
     // 5. Listar todas las fuentes y su participación global
     @GetMapping("/fuentes-participacion")
     public List<Object[]> listarFuentesYPaticipacion() {
