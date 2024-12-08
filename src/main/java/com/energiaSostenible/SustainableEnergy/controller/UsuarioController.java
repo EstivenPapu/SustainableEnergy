@@ -18,9 +18,17 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
-    public List<Usuario> getAllUsuarios() {
-        return usuarioService.getAllUsuarios();
+     @GetMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password) {
+        // Verifica si el usuario existe y la contraseña es correcta
+        Usuario usuario = usuarioService.verificarUsuario(username, password);
+        if (usuario != null) {
+            // Si existe el usuario, devolvemos la información completa del usuario en formato JSON
+            return "{ \"status\": \"Y\", \"Id\": " + usuario.getId() + " }";
+        } else {
+            // Si no existe el usuario o la contraseña no es válida, devolvemos "N"
+            return "{ \"status\": \"N\" }";
+        }
     }
 
     @GetMapping("/{id}")

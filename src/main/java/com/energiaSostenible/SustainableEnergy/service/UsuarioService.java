@@ -15,10 +15,6 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     
-    public List<Usuario> getAllUsuarios(){
-        return usuarioRepository.findAll();
-    }
-    
     public Optional<Usuario> getUsuarioById(Long id){
         return usuarioRepository.findById(id);
     }
@@ -51,5 +47,16 @@ public class UsuarioService {
 
         // Guarda los cambios
         return usuarioRepository.save(usuario);
+    }
+    
+     public Usuario verificarUsuario(String username, String password) {
+        // Buscar usuario por nombre de usuario
+        Usuario usuario = usuarioRepository.findByUsername(username);
+        
+        // Verificar si la contraseña es correcta
+        if (usuario != null && usuario.getPassword().equals(password)) {
+            return usuario;
+        }
+        return null; // Si no se encuentra el usuario o la contraseña es incorrecta
     }
 }
